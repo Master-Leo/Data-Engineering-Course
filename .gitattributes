@@ -1,0 +1,2 @@
+week_4/data/yellow/yellow_tripdata_2020-01.csv.gz filter=lfs diff=lfs merge=lfs -text
+week_4/data/yellow/yellow_tripdata_2020-01.parquet filter=lfs diff=lfs merge=lfs -text
