@@ -1,7 +1,7 @@
 ###
 ### A complete description of a Prefect Deployment for flow 'etl-parent-flow'
 ###
-name: de-hw-1
+name: de-hw-4
 description: null
 version: 2005b9db6550291b7d22785c6d6e5059
 # The work queue that will handle this deployment's runs
@@ -28,8 +28,17 @@ infrastructure:
 ###
 flow_name: etl-parent-flow
 manifest_path: null
-storage: null
-path: /Users/og/Desktop/data_zoom_camp/data-engineering-zoomcamp/week_2_workflow_orchestration
+storage:
+  repository: https://github.com/Master-Leo/data-engineering-course
+  reference: null
+  access_token: null
+  include_git_objects: true
+  _block_document_id: 0a861696-a8c2-4670-baf0-86009b44bc1f
+  _block_document_name: de-zoom
+  _is_anonymous: false
+  block_type_slug: github
+  _block_type_slug: github
+path: ''
 entrypoint: flows/04_homework/parameterized_flow_hw.py:etl_parent_flow
 parameter_openapi_schema:
   title: Parameters
@@ -56,4 +65,4 @@ parameter_openapi_schema:
       type: string
   required: null
   definitions: null
-timestamp: '2023-03-31T19:49:23.712302+00:00'
+timestamp: '2023-04-01T20:07:49.207748+00:00'
