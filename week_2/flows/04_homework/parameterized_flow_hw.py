@@ -16,7 +16,6 @@ def fetch(dataset_url: str) -> pd.DataFrame:
     df = pd.read_csv(dataset_url)
     return df
 
-
 @task(log_prints=True)
 def clean(df: pd.DataFrame, color: str) -> pd.DataFrame:
     """Fix some dtype issues"""
@@ -34,7 +33,7 @@ def clean(df: pd.DataFrame, color: str) -> pd.DataFrame:
 @task()
 def write_local(df: pd.DataFrame, color: str, dataset_file: str) -> Path:
     """Write DataFrame out locally as parquet file"""
-    path = Path(f"data/{color}/{dataset_file}.parquet")
+    path = Path(f"week_2/data/{color}/{dataset_file}.parquet")
     df.to_parquet(path, compression="gzip")
     return path
 
@@ -60,7 +59,7 @@ def etl_web_to_gcs(year: int, month: int, color: str) -> None:
     
 @flow()
 def etl_parent_flow(
-    months: list[int] = [1, 2], year: int = 2021, color: str = "yellow"
+    months: list[int] = [1, 2], year: int = 2021, color: str = 'yellow'
 ):
     for month in months:
         etl_web_to_gcs(year, month, color)
