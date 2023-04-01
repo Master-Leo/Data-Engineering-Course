@@ -33,7 +33,7 @@ def clean(df: pd.DataFrame, color: str) -> pd.DataFrame:
 @task()
 def write_local(df: pd.DataFrame, color: str, dataset_file: str) -> Path:
     """Write DataFrame out locally as parquet file"""
-    path = Path(f"week_2/data/{color}/{dataset_file}.parquet")
+    path = Path(f'week_2/data/{color}/{dataset_file}.parquet')
     df.to_parquet(path, compression="gzip")
     return path
 
@@ -51,21 +51,19 @@ def etl_web_to_gcs(year: int, month: int, color: str) -> None:
     dataset_url = f'https://github.com/DataTalksClub/nyc-tlc-data/releases/download/{color}/{dataset_file}.csv.gz'
 
     df = fetch(dataset_url)
-    df_clean = clean(
-        df, color 
-    ) #add color so can fix different columns in green dataset 
+    df_clean = clean(df, color) #add color so can fix different columns in green dataset 
     path = write_local(df, color, dataset_file)
     write_gcs(path)
     
 @flow()
 def etl_parent_flow(
-    months: list[int] = [3], year: int = 2021, color: str = 'yellow'
+    months: list[int] = [1], year: int = 2020, color: str = 'green'
 ):
     for month in months:
         etl_web_to_gcs(year, month, color)
     
 if __name__ == '__main__':
-    color = 'yellow'
-    months = [1, 2, 3]
-    year = 2021
+    color = 'color'
+    months = []
+    year = 0
     etl_parent_flow(months, year, color)
