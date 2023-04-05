@@ -22,9 +22,17 @@ def clean(df: pd.DataFrame, color: str) -> pd.DataFrame:
     if color == 'yellow':
         df['tpep_pickup_datetime'] = pd.to_datetime(df['tpep_pickup_datetime'])
         df['tpep_dropoff_datetime'] = pd.to_datetime(df['tpep_dropoff_datetime'])
+        df['VendorID '] = df['VendorID '].astype(float)
+        df['passenger_count'] = df['passenger_count'].astype(float)
+        df['payment_type'] = df['payment_type'].astype(float)
+        df['RatecodeID'] = df['RatecodeID'].astype(float)
     else:
         df['lpep_pickup_datetime'] = pd.to_datetime(df['lpep_pickup_datetime'])
         df['lpep_dropoff_datetime'] = pd.to_datetime(df['lpep_dropoff_datetime'])
+        df['VendorID '] = df['VendorID '].astype(float)
+        df['passenger_count'] = df['passenger_count'].astype(float)
+        df['payment_type'] = df['payment_type'].astype(float)
+        df['RatecodeID'] = df['RatecodeID'].astype(float)
     print(df.head(2))
     print(f'columns: {df.dtypes}')
     print(f'rows: {len(df)}')
