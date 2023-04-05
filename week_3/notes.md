@@ -56,6 +56,7 @@
 Take-away points: 
     - Cost
     - Partitions and Clustering 
+        -> Save cost when querying partion tables in sections
     - Best practices
     - Internals
     - ML in BQ
