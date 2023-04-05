@@ -29,7 +29,7 @@ def write_bq(df: pd.DataFrame) -> None:
     gcp_credentials_block = GcpCredentials.load("zoom-gcp-creds")
 
     df.to_gbq(
-        destination_table='dezoomcamp.rides',
+        destination_table='dezoomcamp.external_yellow_tripdata_2019',
         project_id='brilliant-balm-379703',
         credentials= gcp_credentials_block.get_credentials_from_service_account(),
         chunksize=500_000,
@@ -40,9 +40,8 @@ def write_bq(df: pd.DataFrame) -> None:
 def etl_gcs_to_bq():
     """Main ETL flow to load data into Big Query"""
     color = 'yellow'
-    year = 2021
-    month = 1
-
+    year = 2019
+    month = 2
     path = extract_from_gcs(color, year, month)
     df = transform(path)
     write_bq(df)
