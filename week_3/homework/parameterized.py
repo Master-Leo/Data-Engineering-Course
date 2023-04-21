@@ -17,6 +17,8 @@ def clean(df: pd.DataFrame) -> pd.DataFrame:
     """Fix dtype issues"""
     df['pickup_datetime'] = pd.to_datetime(df['pickup_datetime'])
     df['dropOff_datetime'] = pd.to_datetime(df['dropOff_datetime'])
+    df['PUlocationID'] = df['PUlocationID'].astype(float)
+    df['DOlocationID'] = df['DOlocationID'].astype(float)   
     print(df.head(2))
     print(f'columns: {df.dtypes}')
     print(f'rows: {len(df)}')
@@ -25,7 +27,7 @@ def clean(df: pd.DataFrame) -> pd.DataFrame:
 @task()
 def write_local(df: pd.DataFrame, year: int, dataset_file: str) -> Path:
     """Write DataFrame out locally as parquet file"""
-    path = Path(f'week_3/data/{year}/{dataset_file}.parquet')
+    path = Path(f'data/{year}/{dataset_file}.parquet')
     df.to_parquet(path, compression='gzip')
     return path
 
@@ -41,6 +43,7 @@ def etl_web_to_gcs(year: int, month: int) -> None:
     """The main ETL function"""
     dataset_file = f'fhv_tripdata_{year}-{month:02}'
     dataset_url = f'https://github.com/DataTalksClub/nyc-tlc-data/releases/download/fhv/{dataset_file}.csv.gz'
+    #  https://github.com/DataTalksClub/nyc-tlc-data/releases/download/fhv/fhv_tripdata_2019-01.csv.gz
 
     df = fetch(dataset_url)
     df_clean = clean(df)
@@ -49,7 +52,7 @@ def etl_web_to_gcs(year: int, month: int) -> None:
 
 @flow()
 def etl_parent_flow(
-    months: list[int] = [2], year: int = 2020
+    months: list[int] = [11], year: int = 2020
 ):
     for month in months:
         etl_web_to_gcs(year, month)
