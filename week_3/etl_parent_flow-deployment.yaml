@@ -3,15 +3,21 @@
 ###
 name: de-wk-3-hw-1
 description: null
-version: a75d65991900c70b6d4a87273d4bd74e
+version: 06ee2e85f92576d66052a7789d62f94e
 # The work queue that will handle this deployment's runs
 work_queue_name: default
-work_pool_name: null
+work_pool_name: default-agent-pool
 tags: []
 parameters: {}
 schedule: null
-is_schedule_active: null
+is_schedule_active: true
 infra_overrides: {}
+
+###
+### DO NOT EDIT BELOW THIS LINE
+###
+flow_name: etl-parent-flow
+manifest_path: null
 infrastructure:
   type: process
   env: {}
@@ -20,14 +26,11 @@ infrastructure:
   command: null
   stream_output: true
   working_dir: null
+  _block_document_id: c25ad27a-b715-41f5-8959-47ce35a4965e
+  _block_document_name: anonymous-aecee36a-89f6-4723-9867-1d8be88048a1
+  _is_anonymous: true
   block_type_slug: process
   _block_type_slug: process
-
-###
-### DO NOT EDIT BELOW THIS LINE
-###
-flow_name: etl-parent-flow
-manifest_path: null
 storage: null
 path: /Users/og/Desktop/data-engineering-course/week_3
 entrypoint: homework/parameterized.py:etl_parent_flow
@@ -50,4 +53,4 @@ parameter_openapi_schema:
       type: integer
   required: null
   definitions: null
-timestamp: '2023-04-12T04:24:08.267475+00:00'
+timestamp: '2023-04-21T04:23:48.080759+00:00'
