@@ -13,15 +13,21 @@ def fetch(dataset_url: str) -> pd.DataFrame:
     return df 
 
 @task(log_prints=True)
-def clean(df: pd.DataFrame) -> pd.DataFrame:
+def clean(df: pd.DataFrame, year: int) -> pd.DataFrame:
     """Fix dtype issues"""
-    df['pickup_datetime'] = pd.to_datetime(df['pickup_datetime'])
-    df['dropOff_datetime'] = pd.to_datetime(df['dropOff_datetime'])
-    df['PUlocationID'] = df['PUlocationID'].astype(float)
-    df['DOlocationID'] = df['DOlocationID'].astype(float)   
+    if year == 2019:
+        df['pickup_datetime'] = pd.to_datetime(df['pickup_datetime'])
+        df['dropOff_datetime'] = pd.to_datetime(df['dropOff_datetime'])
+        df['PUlocationID'] = df['PUlocationID'].astype(float)
+        df['DOlocationID'] = df['DOlocationID'].astype(float)
+    else:
+        df['pickup_datetime'] = pd.to_datetime(df['pickup_datetime'])
+        df['dropoff_datetime'] = pd.to_datetime(df['dropoff_datetime'])
+        df['PULocationID'] = df['PULocationID'].astype(float)
+        df['DOLocationID'] = df['DOLocationID'].astype(float)
     print(df.head(2))
     print(f'columns: {df.dtypes}')
-    print(f'rows: {len(df)}')
+    print(f'rows: f year == 2019: {len(df)}')
     return df 
 
 @task()
@@ -44,11 +50,13 @@ def etl_web_to_gcs(year: int, month: int) -> None:
     dataset_file = f'fhv_tripdata_{year}-{month:02}'
     dataset_url = f'https://github.com/DataTalksClub/nyc-tlc-data/releases/download/fhv/{dataset_file}.csv.gz'
     #  https://github.com/DataTalksClub/nyc-tlc-data/releases/download/fhv/fhv_tripdata_2019-01.csv.gz
+    # https://github.com/DataTalksClub/nyc-tlc-data/releases/download/yellow/yellow_tripdata_2019-01.csv.gz
 
     df = fetch(dataset_url)
     df_clean = clean(df)
     path = write_local(df_clean, year, dataset_file)
     write_gcs(path)
+    # print(f"GCS: ./data/{year}/{dataset_file}")
 
 @flow()
 def etl_parent_flow(
