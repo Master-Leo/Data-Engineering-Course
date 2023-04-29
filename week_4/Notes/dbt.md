@@ -62,3 +62,23 @@
     - Macros to reference the underlying tables and vies that were building the data warehouses
     - Run the same code in any environment, it will resolve the correct schema for you
     - Dependencies are build automatically 
+
+# Macros 
+    - Use control structure (e.g. if statements and for loops) in SQL
+    - Use environment variables in your dbt project for production deployments
+    - Abstract snippets in SQL into reusable macros -- these are analogous to functions in most programming languages
+
+# Packages
+    - Like libraries in other programming languages
+    - Standalone dbt project, with models and macros that tackle a specific problem area
+    - By adding a package to your project, the package's models and macros will become part of your own project
+    - Imported in the packages.yml file and imported by running dbt deps
+    - A list of useful packages can be find in dbt package hub
+
+# Variables
+    - Variables are useful for defining values that should be used across the project
+    - With a macro, dbt allows us to provide data to models for compilation
+    - To use a variable we use the { { var ('..') }} functin
+    - Variables can defined in two ways:
+        - In the dbt_project.yml file 
+        - On the command line 
