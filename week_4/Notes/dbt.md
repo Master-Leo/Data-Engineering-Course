@@ -82,3 +82,32 @@
     - Variables can defined in two ways:
         - In the dbt_project.yml file 
         - On the command line 
+
+# Tests
+    - Assumptions that we make about our data 
+    - Tests in dbt are essentially a * select * sql query
+    - These assumptionget compiled to sql that returns the amount of failing records
+    - Test are defined on a column in the .yml file 
+    - DBT provides basic tests to check if the column values:
+        - Unique 
+        - Not null
+        - Accepted values
+        - A foreign key to another table
+    - You can create your custom tests as queries 
+
+# Documentation
+    - dbt provides a way to generate documentation for your dbt project and render it as a website
+    - The documentation for your project:
+        - Information about your project:
+            - Model code (both from the .sql file and compiled)
+            - Model dependencies
+            - Sources
+            - Auto generated DAG from the ref and source macro
+            - Description (from .yml file) and test
+        - Information about your data warehouse (information_schema)
+            - Column names and data types
+            - Table stats like size and rows
+    - dbt docs can also be hosted in dbt cloud
+
+
+    

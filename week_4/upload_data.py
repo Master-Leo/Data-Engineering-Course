@@ -14,7 +14,7 @@ Pre-reqs:
 # services = ['fhv','green','yellow']
 init_url = 'https://github.com/DataTalksClub/nyc-tlc-data/releases/download/'
 # switch out the bucketname
-BUCKET = os.environ.get("GCP_GCS_BUCKET", "week_two_bucket")
+BUCKET = os.environ.get("GCP_GCS_BUCKET", "dbt-resources")
 
 
 def upload_to_gcs(bucket, object_name, local_file):
@@ -53,6 +53,7 @@ def web_to_gcs(year, service):
             df['tpep_pickup_datetime'] = pd.to_datetime(df['tpep_pickup_datetime'])
             df['tpep_dropoff_datetime'] = pd.to_datetime(df['tpep_dropoff_datetime'])
             df['VendorID'] = df['VendorID'].astype(float)
+            df['fare_amount'] = pd.to_numeric(df['fare_amount'])
             df['passenger_count'] = df['passenger_count'].astype(float)
             df['payment_type'] = df['payment_type'].astype(float)
             df['RatecodeID'] = df['RatecodeID'].astype(float)
@@ -60,6 +61,7 @@ def web_to_gcs(year, service):
             df['lpep_pickup_datetime'] = pd.to_datetime(df['lpep_pickup_datetime'])
             df['lpep_dropoff_datetime'] = pd.to_datetime(df['lpep_dropoff_datetime'])
             df['VendorID'] = df['VendorID'].astype(float)
+            df['fare_amount'] = pd.to_numeric(df['fare_amount'])
             df['passenger_count'] = df['passenger_count'].astype(float)
             df['payment_type'] = df['payment_type'].astype(float)
             df['RatecodeID'] = df['RatecodeID'].astype(float)
