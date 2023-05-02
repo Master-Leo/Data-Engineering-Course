@@ -49,22 +49,28 @@ def web_to_gcs(year, service):
         print(f"Local: {file_name}")
 
         df = pd.read_csv(f'./data/{service}/{file_name}', compression='gzip')
+        # green_cols = ['trip_distance', 'fare_amount', 'extra', 'mta_tax', 'tip_amount', 'tolls_amount', 'ehail_fee', 'improvement_surcharge', 'total_amount','congestion_surcharge']
+        # yellow_cols = ['trip_distance','fare_amount', 'extra','mta_tax', 'tip_amount', 'tolls_amount', 'improvement_surcharge','total_amount', 'congestion_surcharge']
         if service == 'yellow':
             df['tpep_pickup_datetime'] = pd.to_datetime(df['tpep_pickup_datetime'])
             df['tpep_dropoff_datetime'] = pd.to_datetime(df['tpep_dropoff_datetime'])
+            # df[yellow_cols] = df[yellow_cols].apply(pd.to_numeric, errors='coerce')
             df['VendorID'] = df['VendorID'].astype(float)
-            df['fare_amount'] = pd.to_numeric(df['fare_amount'])
+            df['fare_amount'] = df['fare_amount'].astype(float)
             df['passenger_count'] = df['passenger_count'].astype(float)
             df['payment_type'] = df['payment_type'].astype(float)
             df['RatecodeID'] = df['RatecodeID'].astype(float)
         else:
             df['lpep_pickup_datetime'] = pd.to_datetime(df['lpep_pickup_datetime'])
             df['lpep_dropoff_datetime'] = pd.to_datetime(df['lpep_dropoff_datetime'])
+            # df[green_cols] = df[green_cols].apply(pd.to_numeric, errors='coerce')
             df['VendorID'] = df['VendorID'].astype(float)
-            df['fare_amount'] = pd.to_numeric(df['fare_amount'])
+            df['fare_amount'] = df['fare_amount'].astype(float)
             df['passenger_count'] = df['passenger_count'].astype(float)
             df['payment_type'] = df['payment_type'].astype(float)
             df['RatecodeID'] = df['RatecodeID'].astype(float)
+            df['trip_type'] = df['trip_type'].astype(float)
+
         
         # read it back into a parquet file
         file_name_parquet = file_name.replace('.csv.gz', '.parquet')
