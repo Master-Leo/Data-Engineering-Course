@@ -109,5 +109,3 @@
             - Table stats like size and rows
     - dbt docs can also be hosted in dbt cloud
 
-
-    
