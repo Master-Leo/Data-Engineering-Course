@@ -66,3 +66,19 @@
     - > Ensures quality (no more merging buggy code)
     - > Data projects are now full 'software projects'
     - > Data projects should take advantage of the automation CI brings 
+
+- > Use CI to
+- >  (1) Test your incoming data regularly (production env)
+    - > Periodic data transformation and profiling
+        - dbt(prod) -> PipeRider(prod) -> Run Report 
+- >  (2) Test your changes before deploying (pre-commit checks)
+    - > Preview new models/changes (PipeRider report for validation)
+
+                                          -> Run Report
+                                          ↑ 
+        - dbt(prod) -> PipeRider(prod) -> ↓
+                                          -> compare -> Comparision Report 
+                       PipeRider(prod) -> ↑
+
+
+    - > A/B deployments: production and PR schema 
